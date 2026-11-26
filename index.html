@@ -7,7 +7,7 @@
 <meta name="description" content="Abdennour Akoudad-Ekajouan, PhD candidate in economics at the Universitat de València. Household finance, experimental economics.">
 <style>
   :root {
-    --text: #494e52;
+    --text: #1a1a1a;
     --heading: #222;
     --muted: #7a8288;
     --link: #2f7f93;
@@ -22,6 +22,17 @@
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
+  /* Abstract desplegable */
+  details.abstract-toggle { margin-top: .35em; }
+  details.abstract-toggle > summary {
+    display: inline-block; cursor: pointer; color: var(--link);
+    font-style: italic; list-style: none;
+  }
+  details.abstract-toggle > summary::-webkit-details-marker { display: none; }
+  details.abstract-toggle > summary::after { content: " ▸"; }
+  details.abstract-toggle[open] > summary::after { content: " ▾"; }
+  details.abstract-toggle > summary:hover { text-decoration: underline; }
+  details.abstract-toggle > p.abstract { margin-top: .4em; }
   /* top bar */
   .masthead {
     position: sticky; top: 0; z-index: 10; background: #fff;
