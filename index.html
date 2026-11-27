@@ -18,28 +18,6 @@
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-  <div id="scroll-progress" aria-hidden="true"><div></div></div>
-<script>
-  (function () {
-    var track = document.getElementById('scroll-progress');
-    var bar = track.firstElementChild;
-    var main = document.querySelector('main');
-    var GAP = 24; // distancia (px) a la izquierda de "About me"
-
-    function place() {
-      var left = main.getBoundingClientRect().left;
-      track.style.display = left < 2 * GAP ? 'none' : 'block'; // oculta en móvil
-      track.style.left = (left - GAP) + 'px';
-    }
-    function update() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.transform = 'scaleY(' + (max > 0 ? window.scrollY / max : 0) + ')';
-    }
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', function () { place(); update(); });
-    place(); update();
-  })();
-</script>
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--font); }
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -60,6 +38,16 @@
     background-color: var(--link); color: #fff; text-decoration: none;
   }
   details.abstract-toggle > p.abstract { margin-top: .5em; }
+
+  /* Barra de progreso de lectura */
+  #scroll-progress {
+    position: fixed; top: 0; bottom: 0; width: 3px;
+    background: var(--border); z-index: 5; pointer-events: none;
+  }
+  #scroll-progress > div {
+    height: 100%; background: #000;
+    transform: scaleY(0); transform-origin: top;
+  }
   /* top bar */
   .masthead {
     position: sticky; top: 0; z-index: 10; background: #fff;
@@ -73,15 +61,7 @@
   .masthead a:not(.site-title) { color: var(--muted); font-size: 0.95rem; }
   .masthead a:hover { color: var(--heading); text-decoration: none; }
 
-    /* Barra de progreso de lectura */
-  #scroll-progress {
-    position: fixed; top: 0; bottom: 0; width: 3px;
-    background: var(--border); z-index: 10; pointer-events: none;
-  }
-  #scroll-progress > div {
-    height: 100%; background: #000;
-    transform: scaleY(0); transform-origin: top;
-  }
+ 
 
   /* layout */
   .wrap {
@@ -306,6 +286,29 @@ My work bridges development economics, household finance, and experimental finan
 </div>
 
 <footer><div>© 2026 Abdennour Akoudad-Ekajouan</div></footer>
+
+<div id="scroll-progress" aria-hidden="true"><div></div></div>
+<script>
+  (function () {
+    var track = document.getElementById('scroll-progress');
+    var bar = track.firstElementChild;
+    var main = document.querySelector('main');
+    var GAP = 24; // distancia (px) a la izquierda de "About me"
+
+    function place() {
+      var left = main.getBoundingClientRect().left;
+      track.style.display = left < 2 * GAP ? 'none' : 'block'; // oculta en móvil
+      track.style.left = (left - GAP) + 'px';
+    }
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleY(' + (max > 0 ? window.scrollY / max : 0) + ')';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function () { place(); update(); });
+    place(); update();
+  })();
+</script>
 
 </body>
 </html>
